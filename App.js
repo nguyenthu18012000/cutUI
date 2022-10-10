@@ -1,47 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
+  Animated,
   Dimensions,
   Image,
+  PanResponder,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import SvgUri from 'react-native-svg-uri';
-import Svg from 'react-native-svg';
-import Card from './assets/images/cardback.svg'
+import Cards from './src/components/cards';
+import { widthCard, heightCard } from './src/constants/constants';
 
-const pi = Math.PI;
 const screenWidth = Dimensions.get('window').width;
 const ringRadius = screenWidth * 0.5 / 2;
 const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 const numberOfCard = array.length;
 const degree = 360 / numberOfCard;
-const widthCard = 85.85;
-const heightCard = 121.61;
-const padding = (screenWidth / 2 - ringRadius);
 
 const App = () => {
-
-  const convertDegreeToRadiant = (degree) => {
-    return (degree / 180) * pi;
-  }
-
-  const getTopPosition = (degree) => {
-    const radiant = convertDegreeToRadiant(degree);
-    const sin = Math.sin(radiant);
-    return (1 - sin) * ringRadius - heightCard / 2 + Math.random() * 5;
-  }
-
-  const getLeftPosition = (degree) => {
-    const radiant = convertDegreeToRadiant(degree);
-    const cos = Math.cos(radiant);
-    return (1 - cos) * ringRadius - widthCard / 2;
-  }
-
-  const getRotate = (index, degree) => {
-    return (index * degree - 90 + Math.random() * 5) + 'deg';
-  }
 
   return (
     <View>
@@ -66,44 +43,14 @@ const App = () => {
           <View style={styles.layout}>
             <View style={styles.orderRing}>
               {array.map((item, key) => (
-                // <Image
-                //   key={key}
-                //   source={require('./assets/images/Frame.png')}
-                //   style={
-                //      [
-                //       {
-                //         left: getLeftPosition(key * degree),
-                //         top: getTopPosition(key * degree),
-                //         transform: [{ rotate: getRotate(key + 1, degree) }]
-                //       },
-                //       styles.orderItem
-                //     ]
-                //   }
-                // />
-                <Card
-                  key={key}
-                  // width='95.85'
-                  // height='141.61'
-                  style={
-                    [
-                      {
-                        left: getLeftPosition(key * degree),
-                        top: getTopPosition(key * degree),
-                        transform: [{ rotate: getRotate(key, degree) }]
-                      },
-                      styles.orderItem
-                    ]
-                  }
-                />
+                  <Cards ordinal={key} degree={degree} />
               ))}
-
             </View>
           </View>
-
         </View>
         <View style={styles.dropArea}>
           <View></View>
-          <View style={styles.dropSide}>
+          <View style={styles.dropSide} onLayout={event => console.log(event.nativeEvent.layout)}>
             <Text style={styles.dropText}>Kéo vào ô để mở</Text>
           </View>
           <View></View>
