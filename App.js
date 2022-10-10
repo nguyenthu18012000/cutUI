@@ -7,12 +7,9 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/AntDesign';
-import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconFA from 'react-native-vector-icons/FontAwesome5';
 import SvgUri from 'react-native-svg-uri';
 import Svg from 'react-native-svg';
-import card from './assets/images/cardback.svg'
+import Card from './assets/images/cardback.svg'
 
 const pi = Math.PI;
 const screenWidth = Dimensions.get('window').width;
@@ -33,7 +30,7 @@ const App = () => {
   const getTopPosition = (degree) => {
     const radiant = convertDegreeToRadiant(degree);
     const sin = Math.sin(radiant);
-    return (1 - sin) * ringRadius - heightCard / 2 + Math.random() * 5 ;
+    return (1 - sin) * ringRadius - heightCard / 2 + Math.random() * 5;
   }
 
   const getLeftPosition = (degree) => {
@@ -43,7 +40,7 @@ const App = () => {
   }
 
   const getRotate = (index, degree) => {
-    return ( index * degree - 90 + Math.random() * 5) + 'deg';
+    return (index * degree - 90 + Math.random() * 5) + 'deg';
   }
 
   return (
@@ -71,48 +68,33 @@ const App = () => {
               {array.map((item, key) => (
                 // <Image
                 //   key={key}
-                //   source={require('./assets/images/cardback.svg')}
+                //   source={require('./assets/images/Frame.png')}
                 //   style={
                 //      [
                 //       {
                 //         left: getLeftPosition(key * degree),
                 //         top: getTopPosition(key * degree),
-                //         transform: [{ rotate: getRotate(key, degree) }]
+                //         transform: [{ rotate: getRotate(key + 1, degree) }]
                 //       },
                 //       styles.orderItem
                 //     ]
                 //   }
                 // />
-                // <SvgUri key={key}
-                // alt='lksdjflaksjdflks'
-                //   style={
-                //     [
-                //       {
-                //         left: getLeftPosition(key * degree),
-                //         top: getTopPosition(key * degree),
-                //         transform: [{ rotate: getRotate(key, degree) }]
-                //       },
-                //       styles.orderItem
-                //     ]
-                //   }
-                //   svgXmlData={'./assets/images/cardback.png'}
-                // />
-                <Svg key={key}>
-                  <Image
-
-                    source={require('./assets/images/cardback.svg')}
-                    style={
-                      [
-                        {
-                          left: getLeftPosition(key * degree),
-                          top: getTopPosition(key * degree),
-                          transform: [{ rotate: getRotate(key, degree) }]
-                        },
-                        styles.orderItem
-                      ]
-                    }
-                  />
-                </Svg>
+                <Card
+                  key={key}
+                  // width='95.85'
+                  // height='141.61'
+                  style={
+                    [
+                      {
+                        left: getLeftPosition(key * degree),
+                        top: getTopPosition(key * degree),
+                        transform: [{ rotate: getRotate(key, degree) }]
+                      },
+                      styles.orderItem
+                    ]
+                  }
+                />
               ))}
 
             </View>
@@ -133,7 +115,7 @@ const App = () => {
             <Text style={styles.cardNumber}>50</Text>
           </View>
           <View style={styles.content}>
-          <Image source={require('./assets/images/crown.png')}  />
+            <Image source={require('./assets/images/crown.png')} />
             <Text style={styles.cardNumber}>1</Text>
           </View>
           <View></View>
@@ -186,10 +168,10 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   orderItem: {
-    height: heightCard,
-    width: widthCard,
+    // height: heightCard,
+    // width: widthCard,
     position: "absolute",
-    backgroundColor: '#f0b6bc'
+    // backgroundColor: '#f0b6bc'
   },
   dropArea: {
     flexDirection: 'row',
